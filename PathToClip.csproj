@@ -151,6 +151,13 @@
       <Version>3.3.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="Images\image1.png" />
+    <Content Include="Images\image2.png" />
+    <Content Include="Images\image3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
