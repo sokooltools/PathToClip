@@ -47,10 +47,10 @@ namespace PathToClip
 
         private static class Hive
         {
-            public const string FilePath = @"*\shell\PathToClip";
-            public const string FolderPath = @"Folder\shell\PathToClip";
-            public const string FileCmdPrompt = @"*\shell\CmdHere";
-            public const string FolderCmdPrompt = @"Folder\shell\CmdHere";
+            public const string FILE_PATH = @"*\shell\PathToClip";
+            public const string FOLDER_PATH = @"Folder\shell\PathToClip";
+            public const string FILE_CMD_PROMPT = @"*\shell\CmdHere";
+            public const string FOLDER_CMD_PROMPT = @"Folder\shell\CmdHere";
         }
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -107,16 +107,16 @@ namespace PathToClip
             switch (eContextMenu)
             {
                 case ContextMenu.FilePath:
-                    sHive = Hive.FilePath;
+                    sHive = Hive.FILE_PATH;
                     break;
                 case ContextMenu.FolderPath:
-                    sHive = Hive.FolderPath;
+                    sHive = Hive.FOLDER_PATH;
                     break;
                 case ContextMenu.FileCmdPrompt:
-                    sHive = Hive.FileCmdPrompt;
+                    sHive = Hive.FILE_CMD_PROMPT;
                     break;
                 case ContextMenu.FolderCmdPrompt:
-                    sHive = Hive.FolderCmdPrompt;
+                    sHive = Hive.FOLDER_CMD_PROMPT;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(eContextMenu), eContextMenu, null);
@@ -140,7 +140,7 @@ namespace PathToClip
                 case ContextMenu.FilePath:
                     if (!Exists(ContextMenu.FilePath))
                     {
-                        using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FilePath))
+                        using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_PATH))
                         {
                             if (newkey != null)
                             {
@@ -156,7 +156,7 @@ namespace PathToClip
                 case ContextMenu.FolderPath:
                     if (!Exists(ContextMenu.FolderPath))
                     {
-                        using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FolderPath))
+                        using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_PATH))
                         {
                             if (newkey != null)
                             {
@@ -174,7 +174,7 @@ namespace PathToClip
                     Remove(ContextMenu.FileCmdPrompt);
                     // Create the command file.
                     CreateCmdHereCmdFile();
-                    using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FileCmdPrompt))
+                    using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_CMD_PROMPT))
                     {
                         if (newkey != null)
                         {
@@ -189,7 +189,7 @@ namespace PathToClip
                 case ContextMenu.FolderCmdPrompt:
                     // Always remove the previously installed context menu.
                     Remove(ContextMenu.FolderCmdPrompt);
-                    using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FolderCmdPrompt))
+                    using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_CMD_PROMPT))
                     {
                         if (newkey != null)
                         {
@@ -218,19 +218,19 @@ namespace PathToClip
             {
                 case ContextMenu.FilePath:
                     if (Exists(eContextMenu))
-                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FilePath); // <-- make absolutely certain this subkey is correct!!!
+                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FILE_PATH); // <-- make absolutely certain this subkey is correct!!!
                     break;
                 case ContextMenu.FolderPath:
                     if (Exists(eContextMenu))
-                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FolderPath); // <-- make absolutely certain this subkey is correct!!!
+                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FOLDER_PATH); // <-- make absolutely certain this subkey is correct!!!
                     break;
                 case ContextMenu.FileCmdPrompt:
                     if (Exists(eContextMenu))
-                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FileCmdPrompt); // <-- make absolutely certain this subkey is correct!!!
+                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FILE_CMD_PROMPT); // <-- make absolutely certain this subkey is correct!!!
                     break;
                 case ContextMenu.FolderCmdPrompt:
                     if (Exists(eContextMenu))
-                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FolderCmdPrompt); // <-- make absolutely certain this subkey is correct!!!
+                        Registry.ClassesRoot.DeleteSubKeyTree(Hive.FOLDER_CMD_PROMPT); // <-- make absolutely certain this subkey is correct!!!
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(eContextMenu), eContextMenu, null);
@@ -397,8 +397,10 @@ namespace PathToClip
         //------------------------------------------------------------------------------------------------------------------------
         private static void CreateCmdHereCmdFile()
         {
-            
-            using (StreamWriter sw = File.CreateText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"DevTools", "CmdHere.cmd")))
+	        string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DevTools");
+	        if (!Directory.Exists(folderPath))
+		        Directory.CreateDirectory(folderPath);
+            using (StreamWriter sw = File.CreateText(Path.Combine(folderPath, "CmdHere.cmd")))
             {
                 sw.WriteLine("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
                 sw.WriteLine(":: This command file is used to open a command prompt in the containing   ");
