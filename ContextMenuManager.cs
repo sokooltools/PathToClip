@@ -144,7 +144,7 @@ namespace PathToClip
                         {
                             if (newkey != null)
                             {
-                                newkey.SetValue("", "Copy FilePath to Clipboard");
+                                newkey.SetValue("", "Copy File Path to Clipboard");
                                 using (RegistryKey subkey = newkey.CreateSubKey("command"))
                                 {
                                     subkey?.SetValue("", $"\"{AssemblyLocation()}\" \"%1\"");
@@ -160,7 +160,7 @@ namespace PathToClip
                         {
                             if (newkey != null)
                             {
-                                newkey.SetValue("", "Copy FolderPath to Clipboard");
+                                newkey.SetValue("", "Copy Folder Path to Clipboard");
                                 using (RegistryKey subkey = newkey.CreateSubKey("command"))
                                 {
                                     subkey?.SetValue("", $"\"{AssemblyLocation()}\" \"%1\"");
@@ -258,7 +258,7 @@ namespace PathToClip
             int loc;
             string sFile;
             // Look for VS2017 or VS2019.
-            string sPath = Get2017InstallationPath();
+            string sPath = Get2017Or2019InstallationPath();
             if (!string.IsNullOrEmpty(sPath))
             {
                 sFile = Path.Combine(sPath, Path.Combine(@"Common7\Tools", BATFILE150));
@@ -356,7 +356,7 @@ namespace PathToClip
         /// </summary>
         /// <returns></returns>
         //------------------------------------------------------------------------------------------------------------------------
-        private static string Get2017InstallationPath()
+        private static string Get2017Or2019InstallationPath()
         {
             using (var process = new System.Diagnostics.Process())
             {
@@ -405,7 +405,7 @@ namespace PathToClip
                 sw.WriteLine("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
                 sw.WriteLine(":: This command file is used to open a command prompt in the containing   ");
                 sw.WriteLine(":: folder of a right-clicked file or folder within Windows Explorer.      ");
-                sw.WriteLine(":: Concept conceived and created by Ronn A. Sokol, (c) 2007-2019.         ");
+                sw.WriteLine(":: Concept conceived and created by SokoolTools, (c) 2007-2019.         ");
                 sw.WriteLine("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
                 sw.WriteLine("@echo off");
                 sw.WriteLine("@title VSCMD");

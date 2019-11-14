@@ -16,7 +16,7 @@ namespace PathToClip
             if (args.Length > 0)
             {
                 Clipboard.Clear();
-                Clipboard.SetDataObject(args[0], true, 3, 150);
+                Clipboard.SetDataObject(args[0].Trim('\"'), true, 3, 150);
                 Application.Exit();
             }
             else
