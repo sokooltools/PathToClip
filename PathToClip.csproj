@@ -124,6 +124,7 @@
     </Compile>
     <None Include="app.config" />
     <None Include="PathToClip.csproj.DotSettings" />
+    <None Include="PostBuild.bat" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -152,11 +153,17 @@
       <Version>3.3.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\image1.png" />
+    <Content Include="Images\image2.png" />
+    <Content Include="Images\image3.png" />
+    <Content Include="license.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>"%25DOCUMENTS%25\Visual Studio 2019\DevTools\Postbuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectName)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)Postbuild.bat" "$(ConfigurationName)" "$(SolutionDir)" "$(ProjectName)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 			 Other similar extension points exist, see Microsoft.Common.targets.
