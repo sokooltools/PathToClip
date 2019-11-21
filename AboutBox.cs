@@ -35,10 +35,11 @@ namespace PathToClip
             {
 				chkFolderPathContextMenu.Checked = ContextMenuManager.Exists(PathToClip.ContextMenu.FolderPath);
 				chkFilePathContextMenu.Checked = ContextMenuManager.Exists(PathToClip.ContextMenu.FilePath);
-				chkCmdPromptContextMenu.Checked = ContextMenuManager.Exists(PathToClip.ContextMenu.FolderCmdPrompt);
-                chkCmdPromptContextMenu.Text = ContextMenuManager.CommandPromptText + @" Here";
+                chkCmdPromptContextMenu.Checked = ContextMenuManager.Exists(PathToClip.ContextMenu.FolderCmdPrompt);
+				chkVsCmdPromptContextMenu.Checked = ContextMenuManager.Exists(PathToClip.ContextMenu.FolderVsCmdPrompt);
+                chkVsCmdPromptContextMenu.Visible = ContextMenuManager.VisualStudioBatchFile != null;
             }
-            catch (Exception ex)
+			catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -68,13 +69,24 @@ namespace PathToClip
 
                 if (chkCmdPromptContextMenu.Checked)
                 {
-					ContextMenuManager.Add(PathToClip.ContextMenu.FileCmdPrompt);
-					ContextMenuManager.Add(PathToClip.ContextMenu.FolderCmdPrompt);
+                    ContextMenuManager.Add(PathToClip.ContextMenu.FileCmdPrompt);
+                    ContextMenuManager.Add(PathToClip.ContextMenu.FolderCmdPrompt);
                 }
                 else
                 {
-					ContextMenuManager.Remove(PathToClip.ContextMenu.FileCmdPrompt);
-					ContextMenuManager.Remove(PathToClip.ContextMenu.FolderCmdPrompt);
+                    ContextMenuManager.Remove(PathToClip.ContextMenu.FileCmdPrompt);
+                    ContextMenuManager.Remove(PathToClip.ContextMenu.FolderCmdPrompt);
+                }
+
+				if (chkVsCmdPromptContextMenu.Visible && chkVsCmdPromptContextMenu.Checked)
+                {
+                    ContextMenuManager.Add(PathToClip.ContextMenu.FileVsCmdPrompt);
+                    ContextMenuManager.Add(PathToClip.ContextMenu.FolderVsCmdPrompt);
+                }
+                else
+                {
+                    ContextMenuManager.Remove(PathToClip.ContextMenu.FileVsCmdPrompt);
+                    ContextMenuManager.Remove(PathToClip.ContextMenu.FolderVsCmdPrompt);
                 }
                 Close();
             }
