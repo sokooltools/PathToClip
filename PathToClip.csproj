@@ -154,6 +154,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Help\help.htm" />
+    <Content Include="Help\images\Chrysanthemum.jpg" />
+    <Content Include="Help\images\Jellyfish.jpg" />
+    <Content Include="Help\images\Koala.jpg" />
+    <Content Include="Help\images\Lighthouse.jpg" />
+    <Content Include="Help\scripts\help.js" />
+    <Content Include="Help\scripts\jquery.js" />
+    <Content Include="Help\themes\help.css" />
     <Content Include="Images\image1.png" />
     <Content Include="Images\image2.png" />
     <Content Include="Images\image3.png" />

@@ -16,4 +16,4 @@ The following shows the **Visual Studio Command Prompt Here** context menu item:
 
 ![Image2](Images/image2.png "Visual Studio Command Prompt Here")
 
-Make sure to consult the [Help](help/help.htm) document.
+Make sure to consult the [Help](Help/help.htm) document.
