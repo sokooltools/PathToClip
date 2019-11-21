@@ -46,6 +46,7 @@ namespace PathToClip
 			this.chkCmdPromptContextMenu = new System.Windows.Forms.CheckBox();
 			this.chkFilePathContextMenu = new System.Windows.Forms.CheckBox();
 			this.chkFolderPathContextMenu = new System.Windows.Forms.CheckBox();
+			this.chkVsCmdPromptContextMenu = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -166,13 +167,14 @@ namespace PathToClip
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.chkVsCmdPromptContextMenu);
 			this.groupBox1.Controls.Add(this.chkCmdPromptContextMenu);
 			this.groupBox1.Controls.Add(this.chkFilePathContextMenu);
 			this.groupBox1.Controls.Add(this.chkFolderPathContextMenu);
 			this.groupBox1.Location = new System.Drawing.Point(154, 163);
 			this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 13, 3, 3);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(300, 104);
+			this.groupBox1.Size = new System.Drawing.Size(300, 123);
 			this.groupBox1.TabIndex = 13;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Show in Window Explorer\'s right-click context menus:";
@@ -192,7 +194,7 @@ namespace PathToClip
 			this.chkFilePathContextMenu.AutoSize = true;
 			this.chkFilePathContextMenu.Location = new System.Drawing.Point(14, 44);
 			this.chkFilePathContextMenu.Name = "chkFilePathContextMenu";
-			this.chkFilePathContextMenu.Size = new System.Drawing.Size(150, 17);
+			this.chkFilePathContextMenu.Size = new System.Drawing.Size(153, 17);
 			this.chkFilePathContextMenu.TabIndex = 3;
 			this.chkFilePathContextMenu.Text = "Copy File Path to Clipboard";
 			this.chkFilePathContextMenu.UseVisualStyleBackColor = true;
@@ -202,10 +204,21 @@ namespace PathToClip
 			this.chkFolderPathContextMenu.AutoSize = true;
 			this.chkFolderPathContextMenu.Location = new System.Drawing.Point(14, 21);
 			this.chkFolderPathContextMenu.Name = "chkFolderPathContextMenu";
-			this.chkFolderPathContextMenu.Size = new System.Drawing.Size(163, 17);
+			this.chkFolderPathContextMenu.Size = new System.Drawing.Size(166, 17);
 			this.chkFolderPathContextMenu.TabIndex = 2;
 			this.chkFolderPathContextMenu.Text = "Copy Folder Path to Clipboard";
 			this.chkFolderPathContextMenu.UseVisualStyleBackColor = true;
+			// 
+			// chkVsCmdPromptContextMenu
+			// 
+			this.chkVsCmdPromptContextMenu.AutoSize = true;
+			this.chkVsCmdPromptContextMenu.Location = new System.Drawing.Point(14, 90);
+			this.chkVsCmdPromptContextMenu.Name = "chkVsCmdPromptContextMenu";
+			this.chkVsCmdPromptContextMenu.Size = new System.Drawing.Size(199, 17);
+			this.chkVsCmdPromptContextMenu.TabIndex = 4;
+			this.chkVsCmdPromptContextMenu.Text = "&Visual Studio Command Prompt Here";
+			this.chkVsCmdPromptContextMenu.UseVisualStyleBackColor = true;
+			this.chkVsCmdPromptContextMenu.Visible = false;
 			// 
 			// AboutBox
 			// 
@@ -247,5 +260,6 @@ namespace PathToClip
 		private System.Windows.Forms.CheckBox chkCmdPromptContextMenu;
 		private System.Windows.Forms.CheckBox chkFilePathContextMenu;
 		private System.Windows.Forms.CheckBox chkFolderPathContextMenu;
+		private System.Windows.Forms.CheckBox chkVsCmdPromptContextMenu;
 	}
 }
