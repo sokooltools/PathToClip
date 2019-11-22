@@ -437,10 +437,9 @@ namespace PathToClip
 				sw.WriteLine(":: Concept conceived and created by SokoolTools, (c) 2007-2019.                ");
 				sw.WriteLine(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 				sw.WriteLine("@echo off");
-				sw.WriteLine("@title Command Prompt");
 				sw.WriteLine("mode con lines=1 cols=20");
 				sw.WriteLine("if '%2'=='*' (chdir %~dp1) else (chdir %1)");
-				sw.WriteLine("start %comspec% /k");
+				sw.WriteLine("start %comspec% /k \"TITLE Command Prompt\"");
 				sw.WriteLine("exit /B 0");
 			}
 		}
@@ -463,10 +462,9 @@ namespace PathToClip
 				sw.WriteLine(":: Concept conceived and created by SokoolTools, (c) 2007-2019.                ");
 				sw.WriteLine(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 				sw.WriteLine("@echo off");
-				sw.WriteLine("@title Visual Studio Command Prompt");
 				sw.WriteLine("mode con lines=1 cols=20");
 				sw.WriteLine("if '%2'=='*' (chdir %~dp1) else (chdir %1)");
-				sw.WriteLine("start %comspec% /k \"set VSCMD_START_DIR=%CD% && \"{0}\"\"", VisualStudioBatchFile);
+				sw.WriteLine("start %comspec% /k \"set VSCMD_START_DIR=%CD% && TITLE Visual Studio Command Prompt && \"{0}\"\"", VisualStudioBatchFile);
 				sw.WriteLine("exit /B 0");
 			}
 		}
