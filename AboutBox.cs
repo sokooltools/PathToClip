@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace PathToClip
 {
     internal partial class AboutBox : Form
-    {
+	{
         public AboutBox()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace PathToClip
             }
 			catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.GetType().FullName + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
             }
             finally
             {

@@ -88,7 +88,6 @@ namespace PathToClip
 		internal static bool Exists(ContextMenu eContextMenu)
 		{
 			string sHive;
-
 			switch (eContextMenu)
 			{
 				case ContextMenu.FilePath:
@@ -138,7 +137,7 @@ namespace PathToClip
 								newkey.SetValue(string.Empty, "Copy File Path to Clipboard");
 								using (RegistryKey subkey = newkey.CreateSubKey("command"))
 								{
-									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation()}\" \"%1\"");
+									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation}\" \"%1\"");
 								}
 							}
 						}
@@ -154,7 +153,7 @@ namespace PathToClip
 								newkey.SetValue(string.Empty, "Copy Folder Path to Clipboard");
 								using (RegistryKey subkey = newkey.CreateSubKey("command"))
 								{
-									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation()}\" \"%1\"");
+									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation}\" \"%1\"");
 								}
 							}
 						}
@@ -274,10 +273,7 @@ namespace PathToClip
 		/// </summary>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		private static string AssemblyLocation()
-		{
-			return Path.Combine(Environment.CurrentDirectory, Assembly.GetExecutingAssembly().GetName().Name + ".exe");
-		}
+		private static string AssemblyLocation => Path.Combine(Environment.CurrentDirectory, Assembly.GetExecutingAssembly().GetName().Name + ".exe");
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
@@ -389,12 +385,15 @@ namespace PathToClip
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string Get2017Or2019InstallationPath()
 		{
+			string vsWhereFile = Environment.ExpandEnvironmentVariables(VSWHERE_EXE);
+			if (!File.Exists(vsWhereFile)) 
+				return null;
 			using (var process = new System.Diagnostics.Process())
 			{
 				process.StartInfo = new System.Diagnostics.ProcessStartInfo
 				{
 					CreateNoWindow = true,
-					FileName = Environment.ExpandEnvironmentVariables(VSWHERE_EXE),
+					FileName = vsWhereFile,
 					Arguments = "-prerelease -latest -property installationPath",
 					RedirectStandardOutput = true,
 					UseShellExecute = false
