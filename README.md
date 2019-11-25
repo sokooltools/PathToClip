@@ -27,4 +27,4 @@ The following shows the **Visual Studio Command Prompt Here** context menu item:
 
 <hr>
 
-For more information regarding this application, consult the [Help](Help/help.htm) documentation.
+For more information regarding this application, consult the [Help](https://sokooltools.github.io/PathToClip/Help/help.htm) documentation.
