@@ -3,38 +3,38 @@
 // =======================================================================================================
 $(document).ready(function() {
 
-	// Add 'Table of Contents' to the page.
-	(function createTableOfContents() {
+	// The next function adds 'Table of Contents' to the page.
+	(function() {
 		var sel = $("LI.li2 > a");
-		sel.attr('title', "Click to go to the top of this page...");
-		sel.attr('href', "#");
-		var mid = Math.round(sel.length / 2);
+		sel.attr("title", "Click to go to the top of this page...");
+		sel.attr("href", "#");
+		const mid = Math.round(sel.length / 2);
 		var str = "<table id='help_toc_table'>";
 		str += "<caption id='help_toc_caption'>Table of Contents</caption>";
 		str += "<tr>";
 		str += "<td class='td1'>";
 		str += "<ol start='1'>";
 		for (var i = 0; i < mid; i++) {
-			sel[i].id = "A" + (i + 1);
-			if (sel[i].innerHTML != "")
-				str += "<li class='li1'><a href='#" + sel[i].id + "'>" + sel[i].innerHTML + "</a></li>";
+			sel[i].id = `A${i + 1}`;
+			if (sel[i].innerHTML !== "")
+				str += `<li class='li1'><a href='#${sel[i].id}'>${sel[i].innerHTML}</a></li>`;
 			else {
-				var sec = "Step " + (i + 1);
-				str += "<li class='li1'><a href='#" + sel[i].id + "'>" + sec + "</a></li>";
+				var sec = `Step ${i + 1}`;
+				str += `<li class='li1'><a href='#${sel[i].id}'>${sec}</a></li>`;
 				sel[i].innerHTML = sec;
 			}
 		}
 		str += "</ol>";
 		str += "</td>";
 		str += "<td class='td1'>";
-		str += "<ol start='" + (mid + 1) + "'>";
-		for (i = mid; i < sel.length; i++) {
-			sel[i].id = "A" + (i + 1);
-			if (sel[i].innerHTML != "")
-				str += "<li class='li1'><a href='#" + sel[i].id + "'>" + sel[i].innerHTML + "</a></li>";
+		str += `<ol start='${mid + 1}'>`;
+		for (var i = mid; i < sel.length; i++) {
+			sel[i].id = `A${i + 1}`;
+			if (sel[i].innerHTML !== "")
+				str += `<li class='li1'><a href='#${sel[i].id}'>${sel[i].innerHTML}</a></li>`;
 			else {
-				sec = "Step " + (i + 1);
-				str += "<li class='li1'><a href='#" + sel[i].id + "'>" + sec + "</a></li>";
+				sec = `Step ${i + 1}`;
+				str += `<li class='li1'><a href='#${sel[i].id}'>${sec}</a></li>`;
 				sel[i].innerHTML = sec;
 			}
 		}
@@ -42,19 +42,19 @@ $(document).ready(function() {
 		str += "</td>";
 		str += "</tr>";
 		str += "</table>";
-		$('#help_toc_table').replaceWith(str);
+		$("#help_toc_table").replaceWith(str);
 		sel = $("LI.li1 > a");
-		sel.attr('title', "Click to jump directly to this topic on the page...");
+		sel.attr("title", "Click to jump directly to this topic on the page...");
 		sel.click(function() {
-			scrollToElement(this.hash.replace('#',''));
+			scrollToElement(this.hash.replace("#",""));
 		});
 	})();
 
 	// Add a tooltip to the 'Go to Top' button.
-	$("#help_btnScrollToTop").attr('title', "Click to go to the top of this page...");
+	$("#help_btnScrollToTop").attr("title", "Click to go to the top of this page...");
 
 	// Add a tooltip to the 'Close' button.
-	$("#help_btnClose").attr('title', "Click to close this online help...");
+	$("#help_btnClose").attr("title", "Click to close this online help...");
 
 	// Add event to close the window when the 'Close' button is clicked.
 	$("#help_btnClose").click(function() {
@@ -71,7 +71,7 @@ $(document).ready(function() {
 		document.getElementById(elId).scrollIntoView(true);
 		if  ($(window).height() + $(window).scrollTop() !== $(document).height())
 		{
-			$('html, body').animate({
+			$("html, body").animate({
 				scrollTop: "-=40"
 			}, "fast");
 		}

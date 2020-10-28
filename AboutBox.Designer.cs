@@ -43,10 +43,10 @@ namespace PathToClip
 			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.okButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.chkVsCmdPromptContextMenu = new System.Windows.Forms.CheckBox();
 			this.chkCmdPromptContextMenu = new System.Windows.Forms.CheckBox();
 			this.chkFilePathContextMenu = new System.Windows.Forms.CheckBox();
 			this.chkFolderPathContextMenu = new System.Windows.Forms.CheckBox();
-			this.chkVsCmdPromptContextMenu = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -74,20 +74,19 @@ namespace PathToClip
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 162F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel.Size = new System.Drawing.Size(460, 340);
 			this.tableLayoutPanel.TabIndex = 0;
 			// 
 			// logoPictureBox
 			// 
-			this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
 			this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
 			this.logoPictureBox.Name = "logoPictureBox";
 			this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 7);
-			this.logoPictureBox.Size = new System.Drawing.Size(145, 306);
+			this.logoPictureBox.Size = new System.Drawing.Size(145, 139);
 			this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.logoPictureBox.TabIndex = 12;
 			this.logoPictureBox.TabStop = false;
@@ -171,13 +170,24 @@ namespace PathToClip
 			this.groupBox1.Controls.Add(this.chkCmdPromptContextMenu);
 			this.groupBox1.Controls.Add(this.chkFilePathContextMenu);
 			this.groupBox1.Controls.Add(this.chkFolderPathContextMenu);
-			this.groupBox1.Location = new System.Drawing.Point(154, 163);
+			this.groupBox1.Location = new System.Drawing.Point(154, 161);
 			this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 13, 3, 3);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(300, 123);
 			this.groupBox1.TabIndex = 13;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Show in Window Explorer\'s right-click context menus:";
+			// 
+			// chkVsCmdPromptContextMenu
+			// 
+			this.chkVsCmdPromptContextMenu.AutoSize = true;
+			this.chkVsCmdPromptContextMenu.Location = new System.Drawing.Point(14, 90);
+			this.chkVsCmdPromptContextMenu.Name = "chkVsCmdPromptContextMenu";
+			this.chkVsCmdPromptContextMenu.Size = new System.Drawing.Size(199, 17);
+			this.chkVsCmdPromptContextMenu.TabIndex = 4;
+			this.chkVsCmdPromptContextMenu.Text = "&Visual Studio Command Prompt Here";
+			this.chkVsCmdPromptContextMenu.UseVisualStyleBackColor = true;
+			this.chkVsCmdPromptContextMenu.Visible = false;
 			// 
 			// chkCmdPromptContextMenu
 			// 
@@ -208,17 +218,6 @@ namespace PathToClip
 			this.chkFolderPathContextMenu.TabIndex = 2;
 			this.chkFolderPathContextMenu.Text = "Copy Folder Path to Clipboard";
 			this.chkFolderPathContextMenu.UseVisualStyleBackColor = true;
-			// 
-			// chkVsCmdPromptContextMenu
-			// 
-			this.chkVsCmdPromptContextMenu.AutoSize = true;
-			this.chkVsCmdPromptContextMenu.Location = new System.Drawing.Point(14, 90);
-			this.chkVsCmdPromptContextMenu.Name = "chkVsCmdPromptContextMenu";
-			this.chkVsCmdPromptContextMenu.Size = new System.Drawing.Size(199, 17);
-			this.chkVsCmdPromptContextMenu.TabIndex = 4;
-			this.chkVsCmdPromptContextMenu.Text = "&Visual Studio Command Prompt Here";
-			this.chkVsCmdPromptContextMenu.UseVisualStyleBackColor = true;
-			this.chkVsCmdPromptContextMenu.Visible = false;
 			// 
 			// AboutBox
 			// 
