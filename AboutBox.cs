@@ -115,7 +115,7 @@ namespace PathToClip
                 var titleAttribute = (AssemblyTitleAttribute)attributes[0];
                 // If it is not an empty string, return it
                 return
-                    titleAttribute.Title != string.Empty
+                    titleAttribute.Title != String.Empty
                     ? titleAttribute.Title
                     : Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
                 // If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
@@ -132,7 +132,7 @@ namespace PathToClip
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute),
                                                                                                                   false);
                 // If there aren't any Description attributes, return an empty string, otherwise return its value.
-                return attributes.Length == 0 ? string.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                return attributes.Length == 0 ? String.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
         }
 
@@ -143,7 +143,7 @@ namespace PathToClip
                 // Get all Product attributes on this assembly
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
                 // If there aren't any Product attributes, return an empty string
-                return attributes.Length == 0 ? string.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
+                return attributes.Length == 0 ? String.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
                 // If there is a Product attribute, return its value
             }
         }
@@ -155,7 +155,7 @@ namespace PathToClip
                 // Get all Copyright attributes on this assembly
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
                 // If there aren't any Copyright attributes, return an empty string
-                return attributes.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                return attributes.Length == 0 ? String.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
                 // If there is a Copyright attribute, return its value
             }
         }
@@ -167,7 +167,7 @@ namespace PathToClip
                 // Get all Company attributes on this assembly
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
                 // If there aren't any Company attributes, return an empty string
-                return attributes.Length == 0 ? string.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
+                return attributes.Length == 0 ? String.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
                 // If there is a Company attribute, return its value
             }
         }

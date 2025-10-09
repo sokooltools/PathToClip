@@ -130,14 +130,14 @@ namespace PathToClip
 				case ContextMenu.FilePath:
 					if (!Exists(ContextMenu.FilePath))
 					{
-						using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_PATH))
+						using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_PATH))
 						{
-							if (newkey != null)
+							if (newKey != null)
 							{
-								newkey.SetValue(string.Empty, "Copy File Path to Clipboard");
-								using (RegistryKey subkey = newkey.CreateSubKey("command"))
+								newKey.SetValue(String.Empty, "Copy File Path to Clipboard");
+								using (RegistryKey subkey = newKey.CreateSubKey("command"))
 								{
-									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation}\" \"%1\"");
+									subkey?.SetValue(String.Empty, $"\"{AssemblyLocation}\" \"%1\"");
 								}
 							}
 						}
@@ -146,14 +146,14 @@ namespace PathToClip
 				case ContextMenu.FolderPath:
 					if (!Exists(ContextMenu.FolderPath))
 					{
-						using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_PATH))
+						using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_PATH))
 						{
-							if (newkey != null)
+							if (newKey != null)
 							{
-								newkey.SetValue(string.Empty, "Copy Folder Path to Clipboard");
-								using (RegistryKey subkey = newkey.CreateSubKey("command"))
+								newKey.SetValue(String.Empty, "Copy Folder Path to Clipboard");
+								using (RegistryKey subkey = newKey.CreateSubKey("command"))
 								{
-									subkey?.SetValue(string.Empty, $"\"{AssemblyLocation}\" \"%1\"");
+									subkey?.SetValue(String.Empty, $"\"{AssemblyLocation}\" \"%1\"");
 								}
 							}
 						}
@@ -164,14 +164,14 @@ namespace PathToClip
 					Remove(ContextMenu.FileCmdPrompt);
 					// Create the command file.
 					CreateCmdHereCmdFile();
-					using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_CMD_PROMPT))
+					using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_CMD_PROMPT))
 					{
-						if (newkey != null)
+						if (newKey != null)
 						{
-							newkey.SetValue(string.Empty, @"Command Prompt Here");
-							using (RegistryKey subkey = newkey.CreateSubKey("command"))
+							newKey.SetValue(String.Empty, @"Command Prompt Here");
+							using (RegistryKey subkey = newKey.CreateSubKey("command"))
 							{
-								subkey?.SetValue(string.Empty, $"{CmdHereFilePath} \"%~dp1\" *");
+								subkey?.SetValue(String.Empty, $"{CmdHereFilePath} \"%~dp1\" *");
 							}
 						}
 					}
@@ -179,14 +179,14 @@ namespace PathToClip
 				case ContextMenu.FolderCmdPrompt:
 					// Always remove the previously installed context menu.
 					Remove(ContextMenu.FolderCmdPrompt);
-					using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_CMD_PROMPT))
+					using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_CMD_PROMPT))
 					{
-						if (newkey != null)
+						if (newKey != null)
 						{
-							newkey.SetValue(string.Empty, @"Command Prompt Here");
-							using (RegistryKey subkey = newkey.CreateSubKey("command"))
+							newKey.SetValue(String.Empty, @"Command Prompt Here");
+							using (RegistryKey subkey = newKey.CreateSubKey("command"))
 							{
-								subkey?.SetValue(string.Empty, $"{CmdHereFilePath} \"%1\" f");
+								subkey?.SetValue(String.Empty, $"{CmdHereFilePath} \"%1\" f");
 							}
 						}
 					}
@@ -196,14 +196,14 @@ namespace PathToClip
 					Remove(ContextMenu.FileVsCmdPrompt);
 					// Create the command file.
 					CreateVSCmdHereCmdFile();
-					using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_VSCMD_PROMPT))
+					using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FILE_VSCMD_PROMPT))
 					{
-						if (newkey != null)
+						if (newKey != null)
 						{
-							newkey.SetValue(string.Empty, @"Visual Studio Command Prompt Here");
-							using (RegistryKey subkey = newkey.CreateSubKey("command"))
+							newKey.SetValue(String.Empty, @"Visual Studio Command Prompt Here");
+							using (RegistryKey subkey = newKey.CreateSubKey("command"))
 							{
-								subkey?.SetValue(string.Empty, $"{VsCmdHereFilePath} \"%~dp1\" *");
+								subkey?.SetValue(String.Empty, $"{VsCmdHereFilePath} \"%~dp1\" *");
 							}
 						}
 					}
@@ -211,14 +211,14 @@ namespace PathToClip
 				case ContextMenu.FolderVsCmdPrompt:
 					// Always remove the previously installed context menu.
 					Remove(ContextMenu.FolderVsCmdPrompt);
-					using (RegistryKey newkey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_VSCMD_PROMPT))
+					using (RegistryKey newKey = Registry.ClassesRoot.CreateSubKey(Hive.FOLDER_VSCMD_PROMPT))
 					{
-						if (newkey != null)
+						if (newKey != null)
 						{
-							newkey.SetValue(string.Empty, @"Visual Studio Command Prompt Here");
-							using (RegistryKey subkey = newkey.CreateSubKey("command"))
+							newKey.SetValue(String.Empty, @"Visual Studio Command Prompt Here");
+							using (RegistryKey subkey = newKey.CreateSubKey("command"))
 							{
-								subkey?.SetValue(string.Empty, $"{VsCmdHereFilePath} \"%1\" f");
+								subkey?.SetValue(String.Empty, $"{VsCmdHereFilePath} \"%1\" f");
 							}
 						}
 					}
@@ -286,7 +286,7 @@ namespace PathToClip
 			string sFile;
 			// Look for VS2017 or VS2019.
 			string sPath = Get2017Or2019InstallationPath();
-			if (!string.IsNullOrEmpty(sPath))
+			if (!String.IsNullOrEmpty(sPath))
 			{
 				sFile = Path.Combine(sPath, Path.Combine(@"Common7\Tools", BATFILE150));
 				if (File.Exists(sFile))
