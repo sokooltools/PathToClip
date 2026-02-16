@@ -28,26 +28,16 @@ namespace PathToClip
 	//----------------------------------------------------------------------------------------------------------------------------
 	internal static class ContextMenuManager
 	{
-		private static string _vs2008Batch;
-		private static string _vs2010Batch;
-		private static string _vs2013Batch;
-		private static string _vs2015Batch;
-		private static string _vs2017Batch;
 		private static string _vs2019Batch;
+		private static string _vsLatestBatch;
 
 		private static readonly string CmdFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SokoolTools");
 		private static readonly string CmdHereFilePath = Path.Combine(CmdFolderPath, "CmdHere.cmd");
 		private static readonly string VsCmdHereFilePath = Path.Combine(CmdFolderPath, "VsCmdHere.cmd");
 
-		private const string FOLDER90 = "Microsoft Visual Studio 9.0";
-		private const string BATFILE90 = "vcvarsall.bat";
-		private const string FOLDER100 = "Microsoft Visual Studio 10.0";
-		private const string BATFILE100 = "vcvarsall.bat";
-		private const string FOLDER120 = "Microsoft Visual Studio 12.0";
-		private const string BATFILE120 = "vcvarsall.bat";
-		private const string FOLDER140 = "Microsoft Visual Studio 14.0";
-		private const string BATFILE140 = "vsdevcmd.bat";
 		private const string BATFILE150 = "vsdevcmd.bat";
+		private const string FOLDER160 = "Microsoft Visual Studio 16.0";
+		private const string FOLDER180 = "Microsoft Visual Studio 18.0";
 
 		private const string VSWHERE_EXE = @"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe";
 
@@ -73,10 +63,10 @@ namespace PathToClip
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Gets the Visual Studio Batch File pertinent to the version.
+		/// Gets the Visual Studio Batch File pertinent to the version (2019 or later).
 		/// </summary>
 		//------------------------------------------------------------------------------------------------------------------------
-		public static string VisualStudioBatchFile => _vs2019Batch ?? _vs2017Batch ?? _vs2015Batch ?? _vs2013Batch ?? _vs2010Batch ?? _vs2008Batch;
+		public static string VisualStudioBatchFile => _vsLatestBatch ?? _vs2019Batch;
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
@@ -282,111 +272,43 @@ namespace PathToClip
 		//------------------------------------------------------------------------------------------------------------------------
 		private static void FindVisualStudioBatchFile()
 		{
-			int loc;
 			string sFile;
-			// Look for VS2017 or VS2019.
-			string sPath = Get2017Or2019InstallationPath();
-			if (!String.IsNullOrEmpty(sPath))
+			// Try latest VS via vswhere.
+			string sPath = GetLatestVsInstallationPath();
+			if (!string.IsNullOrEmpty(sPath))
 			{
 				sFile = Path.Combine(sPath, Path.Combine(@"Common7\Tools", BATFILE150));
 				if (File.Exists(sFile))
 				{
-					string text = File.ReadAllText(sFile);
-					if (text.Contains("VisualStudioVersion=16.0"))
-						_vs2019Batch = sFile;
-					else
-						_vs2017Batch = sFile;
+					_vsLatestBatch = sFile;
 					return;
 				}
 			}
-			// Look for VS2015.
-			sPath = Environment.GetEnvironmentVariable("VS140COMNTOOLS");
-			if (sPath != null)
+			// Fallback: explicit scans for VS 16.0 and 18.0 standard folders.
+			foreach (var baseDir in new[] { Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) })
 			{
-				loc = sPath.IndexOf(FOLDER140, StringComparison.OrdinalIgnoreCase);
-				if (loc > -1)
-					sPath = sPath.Substring(0, loc + FOLDER140.Length);
-				sFile = Path.Combine(sPath, Path.Combine(@"Common7\Tools", BATFILE140));
-				if (File.Exists(sFile))
-				{
-					_vs2015Batch = sFile;
-					return;
-				}
-				sFile = FindVsBatchFile(sPath, BATFILE140);
-				if (sFile != null)
-				{
-					_vs2015Batch = sFile;
-					return;
-				}
+				if (string.IsNullOrEmpty(baseDir)) continue;
+				// VS 16.0
+				string sPath16 = Path.Combine(baseDir, FOLDER160);
+				sFile = Path.Combine(sPath16, Path.Combine(@"Common7\Tools", BATFILE150));
+				if (File.Exists(sFile)) { _vs2019Batch = sFile; return; }
+				// VS 18.0
+				string sPath18 = Path.Combine(baseDir, FOLDER180);
+				sFile = Path.Combine(sPath18, Path.Combine(@"Common7\Tools", BATFILE150));
+				if (File.Exists(sFile)) { _vsLatestBatch = sFile; return; }
 			}
-			// Look for VS2013.
-			sPath = Environment.GetEnvironmentVariable("VS120COMNTOOLS");
-			if (sPath != null)
-			{
-				loc = sPath.IndexOf(FOLDER120, StringComparison.OrdinalIgnoreCase);
-				if (loc > -1)
-					sPath = sPath.Substring(0, loc + FOLDER120.Length);
-				sFile = Path.Combine(sPath, Path.Combine("vc", BATFILE120));
-				if (File.Exists(sFile))
-				{
-					_vs2013Batch = sFile;
-					return;
-				}
-				sFile = FindVsBatchFile(sPath, BATFILE120);
-				if (sFile != null)
-				{
-					_vs2013Batch = sFile;
-					return;
-				}
-			}
-			// Look for VS2010
-			sPath = Environment.GetEnvironmentVariable("VS100COMNTOOLS");
-			if (sPath != null)
-			{
-				loc = sPath.IndexOf(FOLDER100, StringComparison.OrdinalIgnoreCase);
-				if (loc > -1)
-					sPath = sPath.Substring(0, loc + FOLDER100.Length);
-				sFile = Path.Combine(sPath, Path.Combine("vc", BATFILE100));
-				if (File.Exists(sFile))
-				{
-					_vs2010Batch = sFile;
-					return;
-				}
-				sFile = FindVsBatchFile(sPath, BATFILE100);
-				if (sFile != null)
-				{
-					_vs2010Batch = sFile;
-					return;
-				}
-			}
-			// Look for VS2008
-			sPath = Environment.GetEnvironmentVariable("VS90COMNTOOLS");
-			if (sPath == null)
-				return;
-			loc = sPath.IndexOf(FOLDER90, StringComparison.OrdinalIgnoreCase);
-			if (loc > -1)
-				sPath = sPath.Substring(0, loc + FOLDER90.Length);
-			sFile = Path.Combine(sPath, Path.Combine("vc", BATFILE90));
-			if (File.Exists(sFile))
-			{
-				_vs2008Batch = sFile;
-				return;
-			}
-			sFile = FindVsBatchFile(sPath, BATFILE90);
-			if (sFile != null)
-				_vs2008Batch = sFile;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Get the Visual Studio 2017 or 2019 'Installation Path' using the 'Visual Studio Locator' application.
+		/// Get the latest Visual Studio 'Installation Path' using the 'Visual Studio Locator' application.
 		/// </summary>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		private static string Get2017Or2019InstallationPath()
+		private static string GetLatestVsInstallationPath()
 		{
 			string vsWhereFile = Environment.ExpandEnvironmentVariables(VSWHERE_EXE);
-			if (!File.Exists(vsWhereFile)) 
+			if (!File.Exists(vsWhereFile))
 				return null;
 			using (var process = new System.Diagnostics.Process())
 			{
@@ -394,7 +316,7 @@ namespace PathToClip
 				{
 					CreateNoWindow = true,
 					FileName = vsWhereFile,
-					Arguments = "-prerelease -latest -property installationPath",
+					Arguments = "-latest -products * -requires Microsoft.Component.MSBuild -property installationPath",
 					RedirectStandardOutput = true,
 					UseShellExecute = false
 				};
@@ -468,12 +390,5 @@ namespace PathToClip
 				sw.WriteLine("exit /B 0");
 			}
 		}
-
-		//public static string ProgramFilesx86()
-		//{
-		//    return IntPtr.Size == 8 || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))
-		//    ? Environment.GetEnvironmentVariable("ProgramFiles(x86)")
-		//    : Environment.GetEnvironmentVariable("ProgramFiles");
-		//}
 	}
 }
